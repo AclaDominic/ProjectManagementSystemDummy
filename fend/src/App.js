@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Login from "./components/Login";
-import Registration from "./components/Registration";
-import Dashboard from "./components/Dashboard";
+import Login from "./components/login";
+import Registration from "./components/registration";
+import Dashboard from "./components/dashboard";
 
 const App = () => {
     const [token, setToken] = useState(localStorage.getItem("token"));
