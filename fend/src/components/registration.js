@@ -8,10 +8,27 @@ const Registration = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [role, setRole] = useState("team_member");
     const [error, setError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
     const navigate = useNavigate();
+
+    const handlePasswordChange = (e) => {
+        const newPassword = e.target.value;
+        setPassword(newPassword);
+        
+        if (newPassword.length < 8) {
+            setPasswordError("Password must be at least 8 characters long");
+        } else {
+            setPasswordError("");
+        }
+    };
 
     const handleRegister = async (e) => {
         e.preventDefault();
+
+        if (password.length < 8) {
+            setError("Password must be at least 8 characters long");
+            return;
+        }
 
         if (password !== confirmPassword) {
             setError("Passwords do not match");
@@ -41,10 +58,12 @@ const Registration = () => {
         <div>
             <h2>Register</h2>
             {error && <p style={{ color: "red" }}>{error}</p>}
+            {passwordError && <p style={{ color: "red" }}>{passwordError}</p>}
             <form onSubmit={handleRegister}>
                 <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
                 <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                <input type="password" placeholder="Password" value={password} onChange={handlePasswordChange} required />
+                
                 <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
                 <select value={role} onChange={(e) => setRole(e.target.value)}>
                     <option value="admin">Admin</option>
